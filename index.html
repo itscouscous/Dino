@@ -1,0 +1,658 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dino</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+</head>
+
+<body>
+  <!-- RATE MODAL -->
+  <div class="modal" id="modal-rate">
+    <div class="modal-background" id="modal-rate-bg"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-weight-bold">Rate a Restaurant</p>
+        <button class="delete" id="btn-rate-x" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body pb-0">
+        <!-- REVIEW FORM -->
+        <form class="has-text-black" id="review_form">
+          <!-- WHICH RESTAURANT -->
+          <div class="field">
+            <label class="label">Choose your restaurant!</label>
+            <div class="control">
+              <div class="select">
+                <select id="restaurant_list">
+                  <!-- *USE JS, PULL FROM FIREBASE -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEEDS & RATING -->
+          <div class="field">
+            <label class="label">How did they do?</label>
+            <div class="control">
+              <div class="select">
+                <select id="user_needs">
+                  <!-- *LOAD USER'S NEEDS DATA W JS -->
+                </select>
+              </div>
+              <div class="select">
+                <select id="rating">
+                  <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                  <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                  <option value="3">&#9733;&#9733;&#9733;</option>
+                  <option value="2">&#9733;&#9733;</option>
+                  <option value="1">&#9733;</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMMENTS -->
+          <div class="field">
+            <label class="label">Any comments?</label>
+            <div class="control">
+              <textarea class="textarea" id="comments" placeholder="Write about your experience!"></textarea>
+            </div>
+          </div>
+
+          <!-- IMAGE -->
+          <div class="field">
+            <label class="label">Image</label>
+            <div class="control">
+              <input class="input" type="file" id="image" placeholder="Choose Image">
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <input class="button is-primary is-rounded has-text-weight-bold mt-4" type="submit" value="Submit"
+            id="btn-rate-submit"></input>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- RESTAURANT MODAL -->
+  <div class="modal" id="modal-restaurant">
+    <div class="modal-background" id="modal-restaurant-bg"></div>
+    <div class="modal-card">
+      <!-- HEADER -->
+      <header class="modal-card-head has-background-black" id="modal_title">
+        <div style="margin: 3% 1% 0% 1%">
+          <h1 class="title has-text-weight-bold has-text-white is-4 mb-1"
+            style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Mediterranean Cafe</h1>
+        </div>
+        <button class="delete mb-auto ml-auto" id="btn-restaurant-x" aria-label="close"></button>
+      </header>
+      <!-- CONTENT -->
+      <section class="modal-card-body py-3 px-5">
+        <h1 class="title is-5 mt-3 mb-3 has-text-weight-bold has-text-primary"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Best performing
+          accommodation</h1>
+        <div id="modal_stats">
+          <p class="subtitle is-6 my-0"><b>Dairy</b> 5.00</p>
+        </div>
+        <h1 class="title is-5 has-text-weight-bold has-text-primary mt-4"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Reviews</h1>
+        <!-- REVIEWS -->
+        <!-- CONFIGURE *JS -->
+        <div class="column" id="review_data">
+          <div class="card large mb-4">
+            <div class="card-content">
+              <div class="media">
+                <div class="content">
+                  <h1 class="has-text-weight-bold has-text-dark is-size-5 mb-2"
+                    style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">@megan</h1>
+                  <i class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star-half has-text-warning"></i>
+                  <p class="subtitle is-6 mt-1"><b>Rated for:&nbsp; </b>Kosher &#8226; Vegetarian &#8226; Wheelchair</p>
+                  <p class="subtitle is-6 mt-2">not bad lmao</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+      </footer>
+    </div>
+  </div>
+
+
+
+  <!-- HEADER -->
+  <div class="navbar p-1">
+    <!-- NAVBAR BRAND -->
+    <div class="navbar-brand">
+
+      <!-- LOGO -->
+      <a class="navbar-item mr-4">
+        <i class="fas is-size-4 fa-carrot has-text-primary"></i>
+        <h1 class="ml-2 is-size-4 has-text-black has-text-weight-bold is-uppercase"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Dino</h1>
+      </a>
+
+      <!-- NAVBAR MENU -->
+      <a class="navbar-item is-active has-text-weight-bold has-text-primary" id="link-home">Home</a>
+      <a class="navbar-item" id="link-discover">Discover</a>
+      <a class="navbar-item" id="link-about-us">About Us</a>
+
+      <!-- BURGER -->
+      <a class="navbar-burger burger" data-target="navbarMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+
+
+
+    <!-- NAVBAR END -->
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <div class="navbar-item signedin">
+            <a id="user_email" class="has-text-black mr-2"></a>
+          </div>
+          <!-- WRITE REVIEW -->
+          <a class="button is-primary has-icons-right signedin" id="btn-rate">
+            <strong>Rate a Restaurant</strong>
+            <span class="icon is-medium is-right ml-1">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </span>
+          </a>
+          <!-- LOG IN -->
+          <a class="button is-light signedout" id="btn-log-in">
+            <strong>Log In</strong>
+          </a>
+          <!-- SIGN UP -->
+          <a class="button is-primary signedout" id="btn-sign-up">
+            <strong>Sign Up</strong>
+          </a>
+          <!-- LOG OUT -->
+          <a class="button is-light signedin" id="btn-log-out">
+            <strong>Log Out</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MESSAGE BAR -->
+  <h1 class="has-background-black has-text-white has-text-centered p-2 is-hidden" id="message_bar"></h1>
+
+  <!-- HOME PAGE -->
+  <section id="home">
+    <!-- SUBHEADER -->
+    <div class="column has-text-centered" id="subheader"
+      style="background-image: url(images/restaurant3bw.png); background-position: center;">
+      <div style="margin: 12% 30% 9% 30%;">
+        <h1 class="title is-3 has-text-weight-bold has-text-white"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Share your stories. <br>
+          Dine without worries.</h1>
+      </div>
+      <!-- Photo Desc -->
+      <!-- <p class="has-text-white is-size-7">Savage restaurant in St. Louis<br>Photo By Laura Murray</p> -->
+    </div>
+
+    <!-- MAIN -->
+    <div class="columns my-4 is-centered" id="our-picks">
+      <!-- LEFT COLUMN -->
+      <div class="column is-6">
+        <h1 class="title has-text-weight-bold is-4 ml-3 mt-3"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Our Picks For You</h1>
+        <h2 class="subtitle has-text-primary is-6 ml-3">Restaurants based on your preferences</h2>
+
+        <!-- CARDS -->
+        <div class="column signedincontent" id="recommended">
+          <!-- SAMPLE CARD -->
+          <!-- PICTURES, TITLE, *****(5), KNOWN FOR, ADDRESS, CLOSING TIME, REVIEWS -->
+          <div class="card large mb-4">
+            <!-- IMAGE -->
+            <div class="card-image">
+              <figure class="image is-16by9">
+                <img src="images/restaurant2.jpeg" alt="Restaurant" style="object-fit: cover;">
+              </figure>
+            </div>
+            <!-- CONTENT -->
+            <div class="card-content">
+              <div class="media">
+                <div class="content">
+                  <h1 class="title has-text-weight-bold has-text-primary is-4 mb-1"
+                    style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Mediterranean
+                    Cafe</h1>
+                  <i class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star has-text-warning"></i>
+                  <p class="subtitle is-6 mt-1"><b>Dairy</b></p>
+                  <p class="subtitle is-6 mb-0"><b>Address: </b>625 State St, Madison, WI 53703</p>
+                  <p class="subtitle is-6 mb-0"><b>Hours: </b> 8AM – 10PM</p>
+                  <p class="subtitle is-6"><b>Phone: </b>(608) 251-8510</p>
+                </div>
+                <div class="column is-right">
+                </div>
+                <a class="button is-primary has-icons-right" id="btn-rate">
+                  <strong>
+                    <p>
+                      Rate
+                    </p>
+
+                  </strong>
+                  <span class="icon is-medium is-right ml-1">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THIRD COLUMN -->
+      <!-- YOUR REVIEWS/ADVERTISEMENTS -->
+      <div class="column is-3 has-background-white-ter">
+        <h1 class="title has-text-weight-bold is-4 ml-3 mt-3"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Your Reviews</h1>
+          <div class="column signedincontent" id="my_reviews">
+            <!-- Your Reviews -->
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVER PAGE -->
+  <section class="container is-hidden" id="discover">
+    <div class="columns my-4 is-centered">
+      <!-- LEFT COLUMN -->
+      <div class="column is-2 p-5 has-background-white-ter">
+        <h1 class="title is-4 has-text-weight-bold"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Who's dining today?</h1>
+        <!-- SEARCH BAR-  -->
+        <div class="control has-icons-left">
+          <input class="input is-rounded" type="text" placeholder="Restaurant Name" id="search_bar">
+          <span class="icon is-medium is-left">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+          <!-- SUBMIT & RESET -->
+          <div class="field is-grouped">
+            <button class="button is-primary is-rounded has-text-weight-bold mt-4" id="search_button">Search</button>
+            <button class="button is-rounded mt-4 ml-2" id="reset_button">Reset</button>
+          </div>
+          
+        </div>
+        <!-- SUBMIT -->
+
+
+        <form class="mb-0" id="filter_form">
+
+          <div class="control">
+            <!-- ALLERGIES -->
+            <label class="label mt-5">Allergies</label>
+            <label class="radio">
+              <!--  onclick="load_data_conditions('cars','type', '==', 'gas')"*** -->
+              <input type="radio" name="filter" value="Dairy" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Dairy')">
+              Dairy
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Eggs" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Eggs')">
+              Eggs
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Nuts" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Nuts')">
+              Nuts
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Seafood" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Seafood')">
+              Seafood
+            </label>
+
+            <!-- DIETARY RESTRICTIONS -->
+            <label class="label mt-5">Dietary Restrictions</label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Halal" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Halal')">
+              Halal
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Kosher" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Kosher')">
+              Kosher
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Vegan" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Vegan')">
+              Vegan
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Vegetarian" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Vegetarian')">
+              Vegetarian
+            </label>
+
+            <!-- DISABILITY ACCOMMODATIONS -->
+            <label class="label mt-5">Disability Accommodations</label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Wheelchair" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Wheelchair')">
+              Wheelchair
+            </label>
+            <label class="radio">
+              <input type="radio" name="filter" value="Service Animal" class="test_allergies"
+                onclick="load_data_conditions('restaurants','best', '==', 'Service Animal')">
+              Service Animal
+            </label>
+          </div>
+          <!-- <a class="button is-block is-primary is-fullwidth is-rounded mt-6" href="#">Submit</a> -->
+        </form>
+
+      </div>
+
+
+      <!-- MID COLUMN -->
+      <!-- RESTAURANT LIST -->
+
+      <div class="column is-6 signedincontent">
+        <h1 class="title has-text-weight-bold is-4 ml-3 mt-3" id="restaurantslength"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"></h1>
+        <h2 class="subtitle has-text-primary is-6 ml-3">Based on your preferences</h2>
+        <!-- CARDS -->
+        <div class="column" id="restaurant_data">
+          <!-- SAMPLE CARD -->
+          <!-- PICTURES, TITLE, *****(5), KNOWN FOR, ADDRESS, CLOSING TIME, REVIEWS -->
+          <div class="card large mb-4">
+            <!-- IMAGE -->
+            <div class="card-image">
+              <figure class="image is-16by9">
+                <img src="images/restaurant2.jpeg" alt="Restaurant" style="object-fit: cover;">
+              </figure>
+            </div>
+            <!-- CONTENT -->
+            <div class="card-content">
+              <div class="media">
+                <div class="content">
+                  <h1 class="title has-text-weight-bold has-text-primary is-4 mb-1"
+                    style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Mediterranean
+                    Cafe</h1>
+                  <i class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star has-text-warning"></i><i class="fas fa-star has-text-warning"></i><i
+                    class="fas fa-star-half has-text-warning"></i>
+                  <p class="subtitle is-6 mt-1"><b>Kosher &#8226; Vegetarian &#8226; Wheelchair</b></p>
+                  <p class="subtitle is-6 mb-0"><b>Address: </b>625 State St, Madison, WI 53703</p>
+                  <p class="subtitle is-6 mb-0"><b>Hours: </b> 8AM – 10PM</p>
+                  <p class="subtitle is-6"><b>Phone: </b>608 XXX XXXX</p>
+                </div>
+                <div class="column is-right">
+                </div>
+                <a class="btn-rate button is-primary has-icons-right">
+                  <strong>Rate</strong>
+                  <span class="icon is-medium is-right ml-1">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- THIRD COLUMN -->
+      <!-- YOUR REVIEWS -->
+      <div class="column has-background-white-ter is-2 has-text-centered">
+        Advertisements
+        <img src="images/duolingo.png" alt="">
+        <!-- <img src="images/duolingo.jpeg" alt="">
+        <img src="images/kermit4.jpeg" alt="">
+        <img src="images/kermit5.jpeg" alt="">
+        <img src="images/kermit6.jpeg" alt=""> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US PAGE -->
+  <section class="container is-hidden" id="about-us">
+    <div class="columns" style="margin: 12% 20% 4%">
+      <!-- LEFT COLUMN -->
+      <div class="column left  has-text-right px-6 py-3">
+        <span class="title is-3 has-text-weight-bold has-text-primary"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">PROBLEM STATEMENT</span>
+        <p class="mb-6">
+          <br>
+          If you’re someone who has certain allergies, disabilities, or diet restrictions, you've probably
+          had trouble finding a restaurant that is ready and willing to meet your needs.
+          <br><br>
+          Often, we don’t discover a restaurant’s lack of dining accommodations until we’ve arrived at the place
+          or scrolled through their lengthy online menus. While there are sites that classify and sort
+          restaurants by cuisine and price point, we were hard-pressed to find any that specifically
+          addresses these needs.
+        </p>
+      </div>
+      <!-- RIGHT COLUMN -->
+      <div class="column right has-text-left" style="padding-top: 7%; padding-left: 5%;">
+        <span class="title is-3 has-text-weight-bold has-text-primary"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">OUR MISSION</span>
+        <p>
+          <br>
+          We aim to make it more convenient for everyone to find suitable restaurants that meet their needs, especially
+          for our friends in often under-represented communities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOG IN PAGE -->
+  <section class="container is-hidden" id="log-in">
+    <div class="columns" style="margin: 10% 17%;">
+      <!-- LEFT COLUMN -->
+      <div class="column left p-6">
+        <h1 class="title is-1 has-text-weight-bold"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Dine out without worries.
+        </h1>
+        <h2 class="subtitle has-text-primary is-4">Discover. Rate. Share.</h2>
+        <p><b>Dino</b> is your guide to local restaurants that cater to your disability and dietary needs.</p>
+      </div>
+      <!-- RIGHT COLUMN -->
+      <div class="column right has-text-centered p-6">
+        <h1 class="title is-4 has-text-weight-bold mb-0"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Log In</h1>
+        <p class="description mb-5">Browse restaurants for you!</p>
+        <!-- error msg -->
+        <div class="error has-text-danger is-italic"></div>
+        <form id="login_form">
+
+          <div class="field">
+            <div class="control">
+              <input class="input is-rounded" id="email_" type="email" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input class="input is-rounded" id="password_" type="password" placeholder="Password">
+            </div>
+          </div>
+
+          <!-- <a class="button is-block is-primary is-fullwidth is-rounded" id="btn-log-in-submit">Submit</a> -->
+          <input type="submit" class="button is-block is-primary is-fullwidth is-rounded" value="Submit" id="btn-log-in-submit">
+          <br>
+          <a id="link-sign-up"><small><em>Don't have an account? Sign up.</em></small></a>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGN UP PAGE -->
+  <section class="container is-hidden" id="sign-up">
+    <div class="columns" style="margin: 10% 17%;">
+      <!-- LEFT COLUMN -->
+      <div class="column left p-6">
+        <h1 class="title is-1 has-text-weight-bold"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Dine out without worries.
+        </h1>
+        <h2 class="subtitle has-text-primary is-4">Discover. Rate. Share.</h2>
+        <p><b>Dino</b> is your guide to local restaurants that cater to your disability and dietary needs.</p>
+      </div>
+      <!-- RIGHT COLUMN -->
+      <div class="column right is-three-fifths has-text-centered p-6">
+        <h1 class="title is-4 has-text-weight-bold mb-0"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Sign Up</h1>
+        <p class="description mb-5">Post reviews and personalize your search!</p>
+        <!-- error msg -->
+        <div class="error has-text-danger is-italic"></div>
+        <!-- sign up form -->
+        <form id="signup_form">
+
+          <div class="field">
+            <div class="control">
+              <input class="input is-rounded" id="email" type="email" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input class="input is-rounded" id="password" type="password" placeholder="Password">
+            </div>
+          </div>
+
+          <!-- ALLERGIES -->
+          <label class="has-text-weight-bold mr-2">Allergies</label>
+          <label class="checkbox">
+            <input type="checkbox" value="Dairy" class="user_interests">
+            Dairy
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Eggs" class="user_interests">
+            Eggs
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Nuts" class="user_interests">
+            Nuts
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Seafood" class="user_interests">
+            Seafood
+          </label>
+
+          <!-- DIETARY RESTRICTIONS -->
+          <br>
+          <label class="has-text-weight-bold mr-2">Diets</label>
+          <label class="checkbox">
+            <input type="checkbox" value="Halal" class="user_interests">
+            Halal
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Kosher" class="user_interests">
+            Kosher
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Vegan" class="user_interests">
+            Vegan
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Vegetarian" class="user_interests">
+            Vegetarian
+          </label>
+
+          <!-- DISABILITY ACCOMMODATIONS -->
+          <br>
+          <label class="has-text-weight-bold mr-2">Accommodations</label>
+          <label class="checkbox">
+            <input type="checkbox" value="Wheelchair" class="user_interests">
+            Wheelchair
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" value="Service Animal" class="user_interests">
+            Service Animal
+          </label>
+
+          <!-- <a class="button is-block is-primary is-fullwidth is-rounded" id="btn-sign-up-submit">Submit</a> -->
+          <input type="submit" class="button is-block is-primary is-fullwidth is-rounded mt-3" value="Submit" id="btn-sign-up-submit">
+          <br>
+          <a id="link-log-in"><small><em>Already have an account? Log in.</em></small></a>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer has-background-black is-active">
+    <div class="content has-text-centered has-text-white">
+      <p class="is-size-4 has-text-white has-text-weight-bold is-uppercase mb-0"
+        style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Dino</p>
+      <p class="mb-0"><small>Copyright &copy; 2021 Dino, LLC.</small></p>
+      <p><small>mvwinarta@wisc.edu | dkim598@wisc.edu</small></p>
+      <a href="http://www.facebook.com"><i class="fab fa-2x fa-facebook ml-3"></i></a>
+      <a href="http://www.twitter.com"><i class="fab fa-2x fa-twitter ml-3"></i></a>
+      <a href="http://www.instagram.com"><i class="fab fa-2x fa-instagram ml-3"></i></a>
+    </div>
+  </footer>
+
+
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+
+
+  <script>
+    // TODO
+    // Copy **only** your firebaseConfig from Google Firebae and add it below
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLxupe4mHhrx-XcOE75cmVlBBevOBSeUM",
+      authDomain: "is371-dino.firebaseapp.com",
+      databaseURL: "https://is371-dino-default-rtdb.firebaseio.com",
+      projectId: "is371-dino",
+      storageBucket: "is371-dino.appspot.com",
+      messagingSenderId: "326374014876",
+      appId: "1:326374014876:web:fa86db6e38fdb13430d259"
+    };
+
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // define authentication variable
+    let auth = firebase.auth();
+    let db = firebase.firestore();
+
+    // define a storage reference
+    let ref = firebase.storage().ref();
+  </script>
+
+
+  <script src="app.js"></script>
+
+
+</body>
+
+</html>

@@ -15,7 +15,7 @@ If you’re someone who has certain allergies, disabilities, or diet restriction
 
 With the limited time frame to create this site, we had to sacrifice some functionalities in favor of others and ensure that we hand in a fully functional website by the deadline. Nevertheless, we hope these features could be implemented in the future.
 
-This project proved to be a challenge, particularly with the data-collection process. We originally intended to include a data set of menu items and their classifications, as well as spatial features of the restaurant that might pose accessibility issues to those with physical disabilities. We believe the addition of these data sets would be helpful.
+This project proved to be a challenge, particularly with the data-collection process. We originally intended to include a data set of menu items and their classifications, as well as information about the restaurant space that might pose accessibility issues.  Ideally, our restaurant data set should also be updated in real time. The homepage should also have a personalized list of restaurant recommendations. There should also be a profile page where users can edit their preferences. Lastly, there should be a secondary user type ie. admins to regulate the reviews.
 
 ## Acknowledgements
 Special thanks to Professor Samer Khasawneh who graciously let us hog his office for our excruciating debugging session.

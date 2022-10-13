@@ -18,7 +18,7 @@ With the limited time frame to create this site, we had to sacrifice some functi
 This project proved to be a challenge, particularly with the data-collection process. We originally intended to include a data set of menu items and their classifications, as well as spatial features of the restaurant that might pose accessibility issues to those with physical disabilities. We believe the addition of these data sets would be helpful.
 
 ## Acknowledgements
-Special thanks to Professor Samer Khasawneh who graciously let us crash his office for our excruciating debugging session.
+Special thanks to Professor Samer Khasawneh who graciously let us hog his office for our excruciating debugging session.
 
 ## License
 ```python
